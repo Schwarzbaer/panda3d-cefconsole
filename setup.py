@@ -21,6 +21,12 @@ setup(
     ],
     keywords='panda3d console',
     packages=find_packages(exclude=['tests', 'examples']),
+    package_dir={
+        'cefconsole': 'cefconsole',
+    },
+    package_data={
+        'cefconsole': ['templates/*.html'],
+    },
     python_requires='>=3.7, <4',
     install_requires=['panda3d', 'cefpanda', 'jinja2'],
     entry_points={
