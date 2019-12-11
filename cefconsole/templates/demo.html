@@ -1,0 +1,13 @@
+<script>
+  function color_text(color) {
+      document.getElementById("colorable_text").style.color = color;
+  }
+</script>
+<h1>A little demo subconsole</h1>
+<p id="colorable_text" onclick="call_python();">
+  Click this text to color it red. This will:<br />
+  call `call_python();`,<br />
+  which is a JS hook for the Python function `DemoSubconsole.test_hook()`<br />
+  which calls the JS function `color_text('red')`,<br />
+  which colorsthis text red.<br />
+</p>
