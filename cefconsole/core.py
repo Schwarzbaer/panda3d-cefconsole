@@ -67,7 +67,8 @@ class PythonSubconsole(Subconsole):
         self.console.exec_js_func("print_output", out, prompt)
 
 
-def add_console(*args, console_open=False, render_immediately=False, **kwargs):
+def add_console(*args, console_open=False, render_immediately=False,
+                toggle='f9', subconsoles=None, **kwargs):
     base.console_open = console_open
     base.console = Console(*args, **kwargs)
     if not base.console_open:
@@ -79,7 +80,12 @@ def add_console(*args, console_open=False, render_immediately=False, **kwargs):
             base.console.node().show()
         else:
             base.console.node().hide()
-    base.accept('f9', toggle_console)
+    base.accept(toggle, toggle_console)
 
+    if subconsoles is not None:
+        for sc in subconsoles:
+            base.console.add_subconsole(sc)
+    if render_immediately and subconsoles is None:
+        base.console.add_subconsole(PythonSubconsole())
     if render_immediately:
         base.console.render_console()

@@ -16,7 +16,7 @@ def main():
     # Adding a console
     add_console(
         size=[-1, 1, -0.33, 1],
-        # render_immediately=True,
+        render_immediately=False,
         console_open=True,
     )
     base.console.add_subconsole(DemoSubconsole())

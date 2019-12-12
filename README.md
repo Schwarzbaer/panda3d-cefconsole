@@ -14,11 +14,29 @@ CEFPanda node to the scene graph. The console can contain multiple subconsoles
 between which the user can switch around. A Python console is also provided.
 
 
-Status
-------
+Status a.k.a. TODO
+------------------
 
-This is just a few days work. The HTML templates are pretty atrocious. The code
-could use a thorough review. But it works pretty well actually.
+This is just a few days work.
+
+* The HTML templates are pretty atrocious in look, feel, and code quality.
+* The code could use a thorough review.
+* The subconsoles shipped with this package are lacking in number and functionality.
+  * Python
+    * This needs to be less of a basic test and moreofan IDE.
+  * Panda3D
+    * basics: toggling frame rate, base.mouse modes, oobe, render.analyze(), ...
+    * scene graph explorer / manipulator
+    * task manager
+    * events (listening / creating)
+    * insight into `ModelPool` and other `*Pools`.
+    * Add subconsole to default console
+  * Console theme
+    * Editor for the console's style
+* Documentation besides this README is non-existant.
+* Tests are completely unheard of.
+
+But technologically... it is done. And it works pretty well, too.
 
 
 Installation
@@ -46,6 +64,10 @@ Trying out the Python subconsole
 Using cefconsole
 ----------------
 
+`cefconsole_demo` is a very rudimentary Panda3D application. Its code can be
+found in `cefconsole/boilerplate.py` in the function `main()`, but the relevant
+bits are these (edited for explanatory purposes):
+
     from cefconsole import add_console
     from cefconsole import DemoSubconsole
     from cefconsole import PythonSubconsole
@@ -55,17 +77,26 @@ Using cefconsole
 
     add_console(
         size=[-1, 1, -0.33, 1], # Don't cover the whole window
-        console_open=True, # Whether to show console initially
+        console_open=True, # Whether to show console initially; default False
+	toggle='f9', # Panda3D event that toggles the console; default f9
+	subconsoles=[DemoSubconsole()], # Subconsole to be added immediately
     )
     # There's also `render_immediately`; If True, the console is rendered at the
     # end of add_console, and no further subconsoles can be added.
 
-    # Now there's a base.console, so let's add subconsoles to it.
-    base.console.add_subconsole(DemoSubconsole())
+    # Now there's a base.console, so let's another subconsole to it.
     base.console.add_subconsole(PythonSubconsole())
 
     # After all subconsoles have been added, the console can be rendered.
     base.console.render_console()
+
+If `render_immediate` is set, but no subconsoles are given, the
+`PythonSubconsole` is added by default. So in the end, all you would have needed
+to start out is:
+
+    from cefconsole import add_console
+
+    add_console(render_immediately=True)
 
 
 Adding Subconsoles
@@ -114,21 +145,5 @@ As you see, when you click on the text, JS' `call_python` is called, which
 means that Python's `DemoSubconsole.test_hook` is called, which calls JS'
 `color_text`, and that's how you write `Subconsole`s.
 
-
-TODO
-====
-
-* One-line creation
-  * Add arg for a list of subconsoles to add immediately.
-  * If `render_immediately` is set, but no subconsole list is given, add
-    PythonSubconsole
-* Make toggle button configurable
-* Subconsoles
-  * Panda3D
-    * basics: toggling frame rate, base.mouse modes, oobe, render.analyze(), ...
-    * scene graph explorer
-    * task manager
-    * events (listening / creating)
-    * Add subconsole to default console
-  * Console theme
-    * Editor for the console's style
+`base.console` is a `cefpanda.CEFPanda` object, so further information on it
+can be found in the `cefpanda` repo.
