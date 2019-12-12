@@ -9,7 +9,7 @@ here = path.abspath(path.dirname(__file__))
 
 setup(
     name='panda3d-cefconsole',
-    version='0.0.1dev',
+    version='0.0.2dev',
     description='A CEF-based extendable console for Panda3D applictions',
     url='https://github.com/TheCheapestPixels/panda-cefconsole',
     author='TheCheapestPixels',
