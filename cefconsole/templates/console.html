@@ -62,7 +62,7 @@
     <div id="subconsole_container">
       {% for subconsole in subconsoles %}
       <div id="{{ subconsole.name }}">
-	{% include subconsole.html %}
+	{% include subconsole.name + "/" + subconsole.html %}
       </div>
       {% endfor %}
     </div>

@@ -1,8 +1,6 @@
 import cefpanda
 
-from jinja2 import Environment
-from jinja2 import PackageLoader
-from jinja2 import select_autoescape
+import jinja2
 
 from cefconsole.repl import Interpreter
 
@@ -11,18 +9,23 @@ class Console(cefpanda.CEFPanda):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.subconsoles = []
-        self.env = Environment(
-            loader=PackageLoader('cefconsole', 'templates'),
-            autoescape=select_autoescape(['html', 'xml'])
-        )
 
     def add_subconsole(self, subconsole):
         self.subconsoles.append(subconsole)
 
     def render_console(self):
+        loaders = {
+            sc.name: jinja2.PackageLoader(sc.package, sc.template_dir)
+            for sc in self.subconsoles
+        }
+        loaders.update({'cefconsole': jinja2.PackageLoader('cefconsole', 'templates')})
+        self.env = jinja2.Environment(
+            loader=jinja2.PrefixLoader(loaders),
+            autoescape=jinja2.select_autoescape(['html', 'xml'])
+        )
         for subconsole in self.subconsoles:
             subconsole.hook_js_funcs(self)
-        template = self.env.get_template('console.html')
+        template = self.env.get_template('cefconsole/console.html')
         content = template.render(subconsoles=self.subconsoles)
         self.load_string(content)
 
@@ -39,6 +42,8 @@ class Subconsole:
 
 class DemoSubconsole(Subconsole):
     name = "Demo"
+    package = 'cefconsole'
+    template_dir = 'templates'
     html = "demo.html"
     funcs = {'call_python': 'test_hook'}
 
@@ -49,6 +54,8 @@ class DemoSubconsole(Subconsole):
 
 class PythonSubconsole(Subconsole):
     name = "Python"
+    package = 'cefconsole'
+    template_dir = 'templates'
     html = "python.html"
     funcs = {'read_eval': 'read_and_eval'}
     interpreter = Interpreter()

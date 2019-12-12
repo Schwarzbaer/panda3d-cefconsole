@@ -1,3 +1,6 @@
 blob_storage/
 error.log
 webrtc_event_logs/
+build/
+dist/
+*.egg-info/
