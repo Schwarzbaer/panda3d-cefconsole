@@ -25,7 +25,15 @@ This is just a few days work.
   * Python
     * This needs to be less of a basic test and moreofan IDE.
   * Panda3D
-    * basics: toggling frame rate, base.mouse modes, oobe, render.analyze(), ...
+    * basics
+      * Version, graphics, all the data
+      * drop to pdb
+      * contact pstats
+      * toggling frame rate
+      * base.mouse modes
+      * oobe
+      * render.analyze()
+      * ...
     * scene graph explorer / manipulator
     * task manager
     * events (listening / creating)
