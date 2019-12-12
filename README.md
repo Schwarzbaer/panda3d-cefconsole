@@ -37,6 +37,7 @@ Trying out the Python subconsole
 * In the Demo subconsole, you can click the text. This demonstrates a full
   JavaScript -> Python -> JavaScript roundtrip.
 * In the Python console, add a Smiley ball:
+
       model = base.loader.load_model("models/smiley")
       model.reparent_to(base.render)
       base.cam.set_pos(0, -10, 0)
