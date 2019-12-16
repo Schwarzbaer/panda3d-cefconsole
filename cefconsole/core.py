@@ -1,5 +1,6 @@
-import cefpanda
+import os
 
+import cefpanda
 import jinja2
 
 from cefconsole.repl import Interpreter
@@ -23,6 +24,9 @@ class Console(cefpanda.CEFPanda):
             loader=jinja2.PrefixLoader(loaders),
             autoescape=jinja2.select_autoescape(['html', 'xml'])
         )
+        def subconsolehtmlpath(subconsole):
+            return os.path.join(subconsole.name, subconsole.html)
+        self.env.filters['subconsolehtmlpath'] = subconsolehtmlpath
         for subconsole in self.subconsoles:
             subconsole.hook_js_funcs(self)
         template = self.env.get_template('cefconsole/console.html')

@@ -9,15 +9,14 @@ here = path.abspath(path.dirname(__file__))
 
 setup(
     name='panda3d-cefconsole',
-    version='0.1.0alpha',
+    version='0.1.10alpha',
     description='A CEF-based extendable console for Panda3D applictions',
-    url='https://github.com/TheCheapestPixels/panda-cefconsole',
+    url='https://github.com/TheCheapestPixels/panda3d-cefconsole',
     author='TheCheapestPixels',
     author_email='TheCheapestPixels@gmail.com',
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
-        'Programming Language :: Python :: 3.7',
     ],
     keywords='panda3d console',
     packages=find_packages(exclude=['tests', 'examples']),
@@ -27,7 +26,7 @@ setup(
     package_data={
         'cefconsole': ['templates/*.html'],
     },
-    python_requires='>=3.7, <4',
+    python_requires='>=3.5, <4',
     install_requires=['panda3d', 'cefpanda', 'jinja2'],
     entry_points={
         'console_scripts': [
